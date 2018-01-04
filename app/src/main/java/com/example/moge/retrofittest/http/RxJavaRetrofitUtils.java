@@ -1,13 +1,14 @@
-package com.example.moge.retrofittest;
+package com.example.moge.retrofittest.http;
 
 import android.util.Log;
+
+import com.example.moge.retrofittest.api.NetWorkService;
+import com.example.moge.retrofittest.bean.ZhihuNews;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -84,9 +85,8 @@ public class RxJavaRetrofitUtils {
     public void getNews(Observer<ZhihuNews> observer){
 
         netWorkService.getNews()
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(TransformUtils.<ZhihuNews>setThread())
+                .retryWhen(new RetryWhenNetworkException())
                 .subscribe(observer);
     }
 

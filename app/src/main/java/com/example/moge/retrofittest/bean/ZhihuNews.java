@@ -1,4 +1,4 @@
-package com.example.moge.retrofittest;
+package com.example.moge.retrofittest.bean;
 
 import java.util.List;
 

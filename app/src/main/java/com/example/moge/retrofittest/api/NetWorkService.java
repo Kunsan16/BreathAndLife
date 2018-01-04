@@ -1,7 +1,8 @@
-package com.example.moge.retrofittest;
+package com.example.moge.retrofittest.api;
+
+import com.example.moge.retrofittest.bean.ZhihuNews;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**

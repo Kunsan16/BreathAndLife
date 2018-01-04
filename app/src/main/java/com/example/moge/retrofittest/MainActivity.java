@@ -4,21 +4,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import com.example.moge.retrofittest.bean.ZhihuNews;
+import com.example.moge.retrofittest.mvp.NewsPresenter;
+import com.example.moge.retrofittest.mvp.NewsView;
+
 import pub.devrel.easypermissions.EasyPermissions;
 
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NewsView<NewsPresenter> {
+
+
+    private NewsPresenter mNewspresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        requestData();
+        mNewspresenter=new NewsPresenter(this);
+        mNewspresenter.start();
     }
 
 
@@ -31,33 +36,14 @@ public class MainActivity extends AppCompatActivity {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-    private void requestData() {
 
+    @Override
+    public void setPresenter(NewsPresenter presenter) {
+             this.mNewspresenter=presenter;
+    }
 
-         RxJavaRetrofitUtils.getInstance().getNews(new Observer<ZhihuNews>() {
-             Disposable d;
-             @Override
-             public void onSubscribe(Disposable d) {
-                   this.d=d;
-             }
-
-             @Override
-             public void onNext(ZhihuNews zhihuNews) {
-                 Log.i("onNext",zhihuNews.getDate());
-             }
-
-             @Override
-             public void onError(Throwable e) {
-                 Log.i("onError",e.getMessage());
-                 d.dispose();
-             }
-
-             @Override
-             public void onComplete() {
-                 Log.i("onComplete","onComplete");
-             }
-         });
-
-
+    @Override
+    public void printNews(ZhihuNews zhihuNews) {
+             Log.d("MainActivity",zhihuNews.getStories().get(0).getTitle());
     }
 }
