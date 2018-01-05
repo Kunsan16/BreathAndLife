@@ -2,6 +2,7 @@ package com.example.moge.retrofittest.api;
 
 import com.example.moge.retrofittest.bean.ZhihuNews;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
@@ -13,5 +14,5 @@ public interface NetWorkService {
 
 
     @GET("api/4/news/latest")
-    Observable<ZhihuNews> getNews();
+    Flowable<ZhihuNews> getNews();
 }
