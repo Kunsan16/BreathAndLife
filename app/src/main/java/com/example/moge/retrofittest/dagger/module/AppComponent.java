@@ -13,12 +13,13 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = { HttpModule.class,AppModule.class})
+@Component(modules = { AppModule.class,NetworkModule.class})
 public interface AppComponent {
 
-    RetrofitHelper retrofitHelper();  //提供http的帮助类
+//    RetrofitHelper retrofitHelper();  //提供http的帮助类
+//
+//    DataManage getDataManager(); //数据中心
 
-    DataManage getDataManager(); //数据中心
-
+       void inject(MainActivity activity);
 
 }

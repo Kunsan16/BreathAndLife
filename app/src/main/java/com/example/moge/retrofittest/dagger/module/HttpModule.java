@@ -52,11 +52,11 @@ public class HttpModule {
         return createRetrofit(builder, client, Api.URL);
     }
 
-    @Singleton
-    @Provides
-    NetWorkService provideZhihuService( Retrofit retrofit) {
-        return retrofit.create(NetWorkService.class);
-    }
+//    @Singleton
+//    @Provides
+//    NetWorkService provideZhihuService( Retrofit retrofit) {
+//        return retrofit.create(NetWorkService.class);
+//    }
 
 
     @Singleton
@@ -86,11 +86,6 @@ public class HttpModule {
         return builder.build();
     }
 
-    @Provides
-    @Singleton
-    HttpHelper provideHttpHelper(RetrofitHelper retrofitHelper) {
-                return retrofitHelper;
-             }
 
 
     private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyApp.iml" filepath="$PROJECT_DIR$/MyApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BreathAndLife.iml" filepath="$PROJECT_DIR$/BreathAndLife.iml" />
+      <module fileurl="file://G:\MyAndroidProject\BreathAndLife\MyApp.iml" filepath="G:\MyAndroidProject\BreathAndLife\MyApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

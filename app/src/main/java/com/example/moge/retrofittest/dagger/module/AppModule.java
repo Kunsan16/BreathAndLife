@@ -31,6 +31,12 @@ public class AppModule {
 
     @Provides
     @Singleton
+    HttpHelper provideHttpHelper(RetrofitHelper retrofitHelper) {
+        return retrofitHelper;
+    }
+
+    @Provides
+    @Singleton
     DataManage provideDataManager(HttpHelper httpHelper) {
         return new DataManage(httpHelper);
     }

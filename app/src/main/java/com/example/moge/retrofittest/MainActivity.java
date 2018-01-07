@@ -7,11 +7,10 @@ import android.util.Log;
 import com.example.moge.retrofittest.base.BaseActivity;
 import com.example.moge.retrofittest.bean.Contract;
 import com.example.moge.retrofittest.bean.ZhihuNews;
-import com.example.moge.retrofittest.dagger.module.AppComponent;
-import com.example.moge.retrofittest.dagger.module.DaggerAppComponent;
-import com.example.moge.retrofittest.dagger.module.HttpModule;
 import com.example.moge.retrofittest.mvp.NewsPresenterImpl;
 import com.example.moge.retrofittest.mvp.NewsView;
+
+import javax.inject.Inject;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -21,13 +20,16 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends BaseActivity<Contract.NewsPresenter> implements NewsView {
 
 
+    @Inject
+    public  Service service;
     private Contract.NewsPresenter mNewspresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mNewspresenter=new NewsPresenterImpl(this);
+        getDeps().inject(this);
+        mNewspresenter=new NewsPresenterImpl(this,service);
 
         mNewspresenter.requstNews();
     }

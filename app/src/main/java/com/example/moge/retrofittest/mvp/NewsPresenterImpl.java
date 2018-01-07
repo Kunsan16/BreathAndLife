@@ -1,7 +1,10 @@
 package com.example.moge.retrofittest.mvp;
 
+import android.util.Log;
+
 import com.example.moge.retrofittest.DataManage;
 import com.example.moge.retrofittest.RxBus;
+import com.example.moge.retrofittest.Service;
 import com.example.moge.retrofittest.base.RxPresenter;
 import com.example.moge.retrofittest.bean.Contract;
 import com.example.moge.retrofittest.common.CommonSubscriber;
@@ -11,11 +14,14 @@ import com.example.moge.retrofittest.base.BaseObserver;
 import com.example.moge.retrofittest.base.BasePresenter;
 import com.example.moge.retrofittest.http.TransformUtils;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
@@ -29,12 +35,16 @@ public class NewsPresenterImpl extends RxPresenter implements Contract.NewsPrese
     private NewsView newsView;
 
 
-    @Inject
-    DataManage dataManage;
+    Service mDataManager;
 
-    public NewsPresenterImpl(NewsView newsView) {
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
+
+
+
+    public NewsPresenterImpl(NewsView newsView,Service service) {
         this.newsView=newsView;
-//        this.dataManage=dataManage;
+         this.mDataManager=service;
         this.newsView.setPresenter(this);
     }
 
@@ -58,7 +68,7 @@ public class NewsPresenterImpl extends RxPresenter implements Contract.NewsPrese
 
     @Override
     public void requstNews() {
-        addSubscribe(dataManage.getNews()
+        addSubscribe(mDataManager.getCityList()
                 .compose(TransformUtils.<ZhihuNews>rxSchedulerHelper())
                 .map(new Function<ZhihuNews, ZhihuNews>() {
                     @Override
@@ -70,10 +80,9 @@ public class NewsPresenterImpl extends RxPresenter implements Contract.NewsPrese
                 .subscribeWith(new CommonSubscriber<ZhihuNews>(newsView) {
                     @Override
                     public void onNext(ZhihuNews dailyListBean) {
-                          newsView.printNews(dailyListBean);
+                        Log.d("测试",dailyListBean.getDate());
                     }
-                })
-        );
+                }));
 
     }
 }

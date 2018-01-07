@@ -11,6 +11,8 @@ import android.view.WindowManager;
 
 import com.example.moge.retrofittest.dagger.module.AppComponent;
 import com.example.moge.retrofittest.dagger.module.AppModule;
+
+
 import com.example.moge.retrofittest.dagger.module.DaggerAppComponent;
 import com.example.moge.retrofittest.dagger.module.HttpModule;
 
@@ -102,8 +104,7 @@ public class App extends Application{
     public static AppComponent getAppComponent(){
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
-                    .appModule(new AppModule(instance))
-                    .httpModule(new HttpModule())
+
                     .build();
         }
         return appComponent;
