@@ -34,12 +34,7 @@ public class NewsPresenterImpl extends RxPresenter implements Contract.NewsPrese
 
     private NewsView newsView;
 
-
     Service mDataManager;
-
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-
-
 
 
     public NewsPresenterImpl(NewsView newsView,Service service) {
@@ -74,13 +69,41 @@ public class NewsPresenterImpl extends RxPresenter implements Contract.NewsPrese
                     @Override
                     public ZhihuNews apply(ZhihuNews dailyListBean) {
 
+
+
                         return dailyListBean;
                     }
                 })
                 .subscribeWith(new CommonSubscriber<ZhihuNews>(newsView) {
                     @Override
                     public void onNext(ZhihuNews dailyListBean) {
-                        Log.d("测试",dailyListBean.getDate());
+                        List<ZhihuNews.StoriesBean> list = dailyListBean.getStories();
+                        for(ZhihuNews.StoriesBean item : list) {
+                            item.setAdd(item.getTitle());
+                        }
+                       newsView.printNews(dailyListBean);
+                    }
+                }));
+
+        addSubscribe(mDataManager.getZhi()
+                .compose(TransformUtils.<ZhihuNews>rxSchedulerHelper())
+                .map(new Function<ZhihuNews, ZhihuNews>() {
+                    @Override
+                    public ZhihuNews apply(ZhihuNews dailyListBean) {
+
+
+
+                        return dailyListBean;
+                    }
+                })
+                .subscribeWith(new CommonSubscriber<ZhihuNews>(newsView) {
+                    @Override
+                    public void onNext(ZhihuNews dailyListBean) {
+                        List<ZhihuNews.StoriesBean> list = dailyListBean.getStories();
+                        for(ZhihuNews.StoriesBean item : list) {
+                            item.setAdd(item.getTitle());
+                        }
+                        newsView.printNews(dailyListBean);
                     }
                 }));
 

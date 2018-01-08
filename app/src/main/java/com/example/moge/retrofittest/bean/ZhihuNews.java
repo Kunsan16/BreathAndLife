@@ -58,7 +58,16 @@ public class ZhihuNews {
         private boolean multipic;
         private int type;
         private int id;
+        private String add;
         private List<String> images;
+
+        public String getAdd() {
+            return add;
+        }
+
+        public void setAdd(String add) {
+            this.add = add;
+        }
 
         public String getTitle() {
             return title;

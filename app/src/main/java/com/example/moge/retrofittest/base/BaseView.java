@@ -7,4 +7,6 @@ package com.example.moge.retrofittest.base;
 public interface BaseView<T> {
 
     void setPresenter(T presenter);
+
+    void showErrorMsg(String errorMsg);
 }

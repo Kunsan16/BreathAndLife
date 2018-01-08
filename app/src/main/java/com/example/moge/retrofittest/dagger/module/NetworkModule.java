@@ -3,6 +3,7 @@ package com.example.moge.retrofittest.dagger.module;
 import com.example.moge.retrofittest.Service;
 import com.example.moge.retrofittest.api.Api;
 import com.example.moge.retrofittest.api.NetWorkService;
+import com.example.moge.retrofittest.api.Zhihu2Service;
 
 
 import java.io.File;
@@ -81,12 +82,14 @@ public class NetworkModule {
              Retrofit retrofit) {
         return retrofit.create(NetWorkService.class);
     }
+
     @Provides
     @Singleton
     @SuppressWarnings("unused")
-    public Service providesService(
-            NetWorkService networkService) {
-        return new Service(networkService);
+    public Zhihu2Service providesZhihu2Service(
+            Retrofit retrofit) {
+        return retrofit.create(Zhihu2Service.class);
     }
+
 
 }
