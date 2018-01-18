@@ -1,8 +1,12 @@
 package com.example.moge.retrofittest.common;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.example.moge.retrofittest.MainActivity;
 import com.example.moge.retrofittest.base.BaseView;
+
+import java.net.UnknownHostException;
 
 import io.reactivex.subscribers.ResourceSubscriber;
 import retrofit2.HttpException;
@@ -44,15 +48,17 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
 
     @Override
     public void onError(Throwable e) {
+        Log.d("网络异常",e.toString());
         if (mView == null) {
             return;
         }
         if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-           // mView.showErrorMsg(mErrorMsg);
+            mView.showErrorMsg(mErrorMsg);
         }else if (e instanceof HttpException) {
-          //  mView.showErrorMsg("数据加载失败ヽ(≧Д≦)ノ");
-        } else {
-           // mView.showErrorMsg("未知错误ヽ(≧Д≦)ノ");
+            mView.showErrorMsg("数据加载失败ヽ(≧Д≦)ノ");
+        }
+        else {
+            mView.showErrorMsg("未知错误ヽ(≧Д≦)ノ");
           //  LogUtil.d(e.toString());
         }
         if (isShowErrorState) {
