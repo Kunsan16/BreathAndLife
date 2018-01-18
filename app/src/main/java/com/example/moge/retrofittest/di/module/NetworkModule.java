@@ -1,7 +1,8 @@
-package com.example.moge.retrofittest.dagger.module;
+package com.example.moge.retrofittest.di.module;
 
 import com.example.moge.retrofittest.Service;
 import com.example.moge.retrofittest.api.Api;
+import com.example.moge.retrofittest.api.MeiZhiService;
 import com.example.moge.retrofittest.api.NetWorkService;
 
 
@@ -35,7 +36,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    Retrofit provideCall() {
+    OkHttpClient provideCall() {
         Cache cache = null;
         try {
             cache = new Cache(cacheFile, 10 * 1024 * 1024);
@@ -66,27 +67,38 @@ public class NetworkModule {
                 .build();
 
 
-        return new Retrofit.Builder()
-                .baseUrl(Api.URL)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+        return okHttpClient;
     }
 
     @Provides
     @Singleton
     @SuppressWarnings("unused")
-    public NetWorkService providesNetworkService(
-             Retrofit retrofit) {
+    public NetWorkService providesNetworkService(Retrofit retrofit) {
         return retrofit.create(NetWorkService.class);
     }
+
+    @Provides
+    @Singleton
+    public MeiZhiService provideMeiZhiService(OkHttpClient client){
+        return buildRetrofit(Api.URL,client).create(MeiZhiService.class);
+    }
+
+
     @Provides
     @Singleton
     @SuppressWarnings("unused")
     public Service providesService(
-            NetWorkService networkService) {
-        return new Service(networkService);
+            NetWorkService networkService,MeiZhiService service) {
+        return new Service(networkService,service);
+    }
+
+    private Retrofit buildRetrofit(String url,OkHttpClient client){
+        return new Retrofit.Builder()
+                .baseUrl(url)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
     }
 
 }

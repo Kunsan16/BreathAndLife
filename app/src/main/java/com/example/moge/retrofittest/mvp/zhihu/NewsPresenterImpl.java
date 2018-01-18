@@ -1,30 +1,15 @@
-package com.example.moge.retrofittest.mvp;
+package com.example.moge.retrofittest.mvp.zhihu;
 
 import android.util.Log;
 
-import com.example.moge.retrofittest.DataManage;
-import com.example.moge.retrofittest.RxBus;
 import com.example.moge.retrofittest.Service;
 import com.example.moge.retrofittest.base.RxPresenter;
-import com.example.moge.retrofittest.bean.Contract;
 import com.example.moge.retrofittest.common.CommonSubscriber;
-import com.example.moge.retrofittest.http.RxJavaRetrofitUtils;
 import com.example.moge.retrofittest.bean.ZhihuNews;
-import com.example.moge.retrofittest.base.BaseObserver;
-import com.example.moge.retrofittest.base.BasePresenter;
 import com.example.moge.retrofittest.http.TransformUtils;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by moge on 2018/1/3.
@@ -36,10 +21,6 @@ public class NewsPresenterImpl extends RxPresenter implements Contract.NewsPrese
 
 
     Service mDataManager;
-
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-
-
 
 
     public NewsPresenterImpl(NewsView newsView,Service service) {

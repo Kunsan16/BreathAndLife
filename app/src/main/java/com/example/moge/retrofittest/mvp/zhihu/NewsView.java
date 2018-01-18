@@ -1,7 +1,6 @@
-package com.example.moge.retrofittest.mvp;
+package com.example.moge.retrofittest.mvp.zhihu;
 
 import com.example.moge.retrofittest.base.BaseView;
-import com.example.moge.retrofittest.bean.Contract;
 import com.example.moge.retrofittest.bean.ZhihuNews;
 
 /**

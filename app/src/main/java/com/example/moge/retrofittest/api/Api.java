@@ -7,5 +7,7 @@ package com.example.moge.retrofittest.api;
 public class Api
 {
 
-    public static final String URL="http://news-at.zhihu.com/";
+    public static final String URL="http://gank.io/api/";
+
+
 }

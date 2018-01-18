@@ -1,14 +1,13 @@
 package com.example.moge.retrofittest;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.moge.retrofittest.base.BaseActivity;
-import com.example.moge.retrofittest.bean.Contract;
+import com.example.moge.retrofittest.mvp.zhihu.Contract;
 import com.example.moge.retrofittest.bean.ZhihuNews;
-import com.example.moge.retrofittest.mvp.NewsPresenterImpl;
-import com.example.moge.retrofittest.mvp.NewsView;
+import com.example.moge.retrofittest.mvp.zhihu.NewsPresenterImpl;
+import com.example.moge.retrofittest.mvp.zhihu.NewsView;
 
 import javax.inject.Inject;
 
@@ -28,7 +27,6 @@ public class MainActivity extends BaseActivity<Contract.NewsPresenter> implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getDeps().inject(this);
         mNewspresenter=new NewsPresenterImpl(this,service);
 
         mNewspresenter.requstNews();

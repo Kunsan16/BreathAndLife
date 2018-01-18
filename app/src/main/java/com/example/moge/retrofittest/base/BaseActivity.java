@@ -4,17 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.moge.retrofittest.dagger.module.ActivityComponent;
-import com.example.moge.retrofittest.dagger.module.ActivityModule;
-import com.example.moge.retrofittest.dagger.module.AppComponent;
 
-import com.example.moge.retrofittest.dagger.module.DaggerAppComponent;
-import com.example.moge.retrofittest.dagger.module.NetworkModule;
+import com.example.moge.retrofittest.di.component.AppComponent;
+import com.example.moge.retrofittest.di.module.NetworkModule;
 
 
 import java.io.File;
-
-import javax.inject.Inject;
 
 /**
  * Created by moge on 2018/1/5.
@@ -36,7 +31,7 @@ public class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 //
 //                .build();
         File cacheFile = new File(getCacheDir(), "responses");
-        mNetComponent = DaggerAppComponent.builder().networkModule(new NetworkModule(cacheFile)).build();
+      //  mNetComponent = DaggerAppComponent.builder().networkModule(new NetworkModule(cacheFile)).build();
 
     }
 
@@ -45,9 +40,5 @@ public class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
     }
 
 
-
-    protected ActivityModule getActivityModule(){
-        return new ActivityModule(this);
-    }
 
 }
